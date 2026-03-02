@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Poppins;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3, #fad0c4);
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Romantic tint overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, .25), transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, .2), transparent 40%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            max-width: 550px;
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+
+        button {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 40px;
+            background: white;
+            color: #ff4b7d;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: .3s;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .2);
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.18);
+            padding: 35px;
+            border-radius: 25px;
+            backdrop-filter: blur(12px);
+            margin: 20px;
+            border: 1px solid rgba(255, 255, 255, .3);
+            box-shadow: 0 0 30px rgba(255, 120, 180, .5);
+            animation: fadeUp 1s ease;
+        }
+
+        .small {
+            font-size: 14px;
+            opacity: .9;
+            margin-top: 10px;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 28px;
+            margin-top: 30px;
+        }
+
+        .gallery img {
+            width: 240px;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 20px;
+            cursor: pointer;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.25);
+            transition: 0.4s;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .25);
+        }
+
+        .gallery img:hover {
+            transform: scale(1.15) rotate(2deg);
+        }
+
+        /* Lightbox */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 20px;
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            font-size: 22px;
+            animation: floatUp 6s linear infinite;
+            opacity: .7;
+        }
+
+        /* Stars */
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            animation: twinkle 2s infinite alternate;
+        }
+
+        /* Secret letter popup */
+        #letter {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Animations */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1
+            }
+
+            100% {
+                transform: translateY(-110vh) scale(1.6);
+                opacity: 0
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes twinkle {
+            from {
+                opacity: .2;
+                transform: scale(.5)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.4)
+            }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0
+            }
+        }
+
+        /* Mobile */
+        @media(max-width:600px) {
+            .gallery {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .gallery img {
+                width: 90%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <audio id="music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Countdown Section -->
+    <section>
+        <h1>Happy Birthday YOGITA 🎂</h1>
+        <h1 id="countdown"></h1>
+    </section>
+
+    <!-- Intro -->
+    <section>
+        <h1>Happy Birthday ❤️</h1>
+        <p>oyeeee ye meine banayi hai khud tere liyee (hehe😁😁).</p>
+        <button onclick="startSurprise()">Tap to Open Your Surprise 🎁</button>
+        <p class="small">(Tap required to start music on phone)</p>
+    </section>
+
+    <!-- Birthday Message -->
+    <section id="reasons">
+        <div class="card">
+            <h1>Happy 18th Birthday Yogiiiiii 💖</h1>
+            <p>
+                baar baar din ye aaye,<br><br>
+                baar baar dil ye gaaye !<br><br>
+                tum jiyo hazaro saal<br><br>
+                ye meri hai aarzooo!<br><br>
+                happy bday to you<br>
+                happy bday to youuuu!!!!!<br><br>
+                ❤️
+            </p>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section>
+        <div class="card">
+            <h4>Tumhari kuch tasveerein 📸</h4>
+
+            <div class="gallery">
+                <img src="photos/photo1.jpg">
+
+                <img src="photos/photo3.jpg">
+                <img src="photos/photo4.jpg">
+                <img src="photos/photo5.jpg">
+                <img src="photos/photo6.jpg">
+                <img src="photos/photo7.jpg">
+                <img src="photos/photo8.jpg">
+                <img src="photos/photo2.jpg">
+                <img src="photos/photo9.jpg">
+                <img src="photos/photo10.jpg">
+                <img src="photos/photo11.jpg">
+            </div>
+        </div>
+    </section>
+
+    <!-- Shayari -->
+    <section>
+        <div class="card">
+            <h1>Acha ye suno 💌</h1>
+            <p>
+                tum itna dur hokar bhi mere itne pas ho....<br>
+                jo logon ko nahi pata mera vo raaz ho.....<br><br>
+                Dooriyon ka ehsaas bhi tumhare hone se kam lagta hai,<br>
+                Har raat meri neendon ka tum hi toh khwaab ho.<br><br>
+                Na haath pakad sakta hoon, na saath chal pata hoon,<br>
+                Par har mushkil mein bas tumhara hi naam leta hoon.<br><br>
+                Tum itna dur hokar bhi mere itne paas ho,<br>
+                Har dua mein shamil mera sabse khaas ho… ❤️
+            </p>
+            <button onclick="openLetter()">Open Secret Letter 💌</button>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img">
+    </div>
+
+    <!-- Secret Letter -->
+    <div id="letter">
+        <div class="card">
+            <h1>For You ❤️</h1>
+            <p>
+                I love You so muchhh........ 🥺<br><br>
+                i will always be your safe place<br>
+                tum meri safe place ho.<br><br>
+                I am always yours. 💖
+            </p>
+            <button onclick="closeLetter()">Close</button>
+        </div>
+    </div>
+
+    <script>
+
+        /* Stars */
+        function createStars() {
+            for (let i = 0; i < 80; i++) {
+                const star = document.createElement("div");
+                star.classList.add("star");
+                star.style.left = Math.random() * 100 + "vw";
+                star.style.top = Math.random() * 100 + "vh";
+                star.style.animationDuration = (1 + Math.random() * 3) + "s";
+                document.body.appendChild(star);
+            }
+        }
+        createStars();
+
+        /* Surprise */
+        function startSurprise() {
+            document.getElementById('music').play();
+            document.getElementById('reasons').scrollIntoView({ behavior: 'smooth' });
+            createHearts();
+            confettiBurst();
+        }
+
+        /* Hearts */
+        function createHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (20 + Math.random() * 30) + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 6000);
+            }, 300);
+        }
+
+        /* Confetti */
+        function confettiBurst() {
+            for (let i = 0; i < 120; i++) {
+                const conf = document.createElement("div");
+                conf.innerHTML = "✨";
+                conf.style.position = "fixed";
+                conf.style.left = Math.random() * 100 + "vw";
+                conf.style.top = "-10px";
+                conf.style.fontSize = (10 + Math.random() * 20) + "px";
+                conf.style.animation = "fall 4s linear forwards";
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 4000);
+            }
+        }
+
+        /* Lightbox */
+        document.querySelectorAll(".gallery img").forEach(img => {
+            img.onclick = () => {
+                document.getElementById("lightbox").style.display = "flex";
+                document.getElementById("lightbox-img").src = img.src;
+            }
+        });
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+
+        /* Letter */
+        function openLetter() {
+            document.getElementById("letter").style.display = "flex";
+        }
+        function closeLetter() {
+            document.getElementById("letter").style.display = "none";
+        }
+
+    </script>
+
+</body>
+
+</html>
